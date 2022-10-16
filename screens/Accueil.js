@@ -1,34 +1,65 @@
-import React from "react";
-import { View, StyleSheet, Button,Image } from "react-native";
-import Header from "../components/Header";
-import Constants from "../constants";
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, Image, Button } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import Header from '../components/Header';
+import Constants from '../constants';
 
-export default function Accueil() {
-
-    return (<View>
-        <Header/>
-        <Image require={("./assets/logoApp.png")}/>
+export default function Accueil({ navigation }) {
+  return (
+    <View>
+      <Header />
+      <View style={styles.logoApp}>
+        <Image source={require('../assets/logoApp.png')} />
+      </View>
+      <View style={styles.btn}>
+        <TouchableOpacity
+          style={styles.button}
+          title="Login"
+          onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.login}>Login</Text>
+        </TouchableOpacity>
         <View style={styles.btn}>
-            <Button title="Login" color={Constants.primary}  />
+          <TouchableOpacity
+            style={styles.button}
+            title="Register"
+            onPress={() => navigation.navigate('Register')}>
+            <Text style={styles.login}>Register</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.btn}>
-            <Button title="Register" color={Constants.primary} />
-        </View>
+      </View>
     </View>
-    )
+  );
 }
 
 const styles = StyleSheet.create({
-    btn: {
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 10,
-        margin: 12,
-        borderRadius: 6,
-        color: Constants.primary,
-    },
+  btn: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    margin: 12,
+    borderRadius: 6,
+  },
 
-    logoApp: {width: 20,
-        height: 20,},
+  logoApp: {
+    margin: 20,
+    width: 150,
+    height: 200,
+    alignSelf: 'center',
+  },
+  button: {
+    width: 150,
+    height: 50,
+    borderWidth: 1,
+    borderRadius: 19,
+    borderColor: 'blue',
+    backgroundColor: 'blue',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  login: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: 'white',
+  },
 });
-
