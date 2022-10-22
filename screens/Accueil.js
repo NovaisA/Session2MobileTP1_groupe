@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text, Image, Button } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Header from '../components/Header';
-import Constants from '../constants';
 
 export default function Accueil({ navigation }) {
   return (
     <View>
-      <Header />
       <View style={styles.logoApp}>
         <Image source={require('../assets/logoApp.png')} />
       </View>
@@ -46,11 +43,12 @@ const styles = StyleSheet.create({
     height: 200,
     alignSelf: 'center',
   },
+
   button: {
     width: 150,
     height: 50,
     borderWidth: 1,
-    borderRadius: 19,
+    borderRadius: 10,
     borderColor: 'blue',
     backgroundColor: 'blue',
     justifyContent: 'center',
@@ -58,8 +56,9 @@ const styles = StyleSheet.create({
   },
 
   login: {
+    fontWeight: "bold",
     fontSize: 20,
     textAlign: 'center',
-    color: 'white',
+    color: '#fff',
   },
 });
