@@ -74,18 +74,17 @@ export default function Register() {
 
 
 const styles = StyleSheet.create({
-    container: {
-        margin: 8,
-    },
+  container: {
+    margin: 8,
+  },
 
-    input: {
-        height: 40,
-        margin: 12,
-        borderWidth: 1,
-        padding: 10,
-        borderRadius: 6,
-    },
-
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 6,
+  },
     touchables: {
         justifyContent: "center",
         alignItems: "center",
@@ -93,5 +92,12 @@ const styles = StyleSheet.create({
         margin: 12,
         borderRadius: 6,
     },
+  button: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: " red",
+    padding: 10,
+    margin: 12,
+    borderRadius: 6,
+  },
 });
-

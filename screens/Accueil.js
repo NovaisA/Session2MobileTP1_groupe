@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+
 export default function Accueil({ navigation }) {
   return (
     <View>
@@ -43,7 +44,6 @@ const styles = StyleSheet.create({
     height: 200,
     alignSelf: 'center',
   },
-
   button: {
     width: 150,
     height: 50,
@@ -60,5 +60,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     color: '#fff',
+    borderRadius: 19,
+    borderColor: "blue",
+    backgroundColor: "blue",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

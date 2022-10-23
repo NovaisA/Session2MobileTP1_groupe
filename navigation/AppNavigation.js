@@ -6,7 +6,7 @@ import Accueil from "../screens/Accueil";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
 import MainListe from "../screens/MainListe";
-
+import Conversation from "../screens/Conversation";
 
 const Drawer = createDrawerNavigator();
 
@@ -43,6 +43,13 @@ const AppNavigation = () => {
         },
         headerTintColor:'#fff',
       }} name="Liste Contact" component={MainListe} />
+        <Drawer.Screen options={{
+        title: 'Liste Contact',
+        headerStyle:{
+          backgroundColor:"blue"
+        },
+        headerTintColor:'#fff',
+      }} name="Conversation" component={Conversation} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
