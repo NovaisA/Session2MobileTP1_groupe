@@ -4,6 +4,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -18,13 +19,9 @@ export default function Login({ navigation }) {
   }
 
   return (
-    <>
-      <View style={styles.logoContainer}>
-        <MaterialCommunityIcons
-          name="human-greeting-proximity"
-          size={150}
-          color="black"
-        />
+    <View>
+      <View style={styles.logoApp}>
+        <Image source={require("../assets/logoApp.png")} />
       </View>
       <View style={styles.container}>
         <TextInput
@@ -50,7 +47,7 @@ export default function Login({ navigation }) {
           <Text style={styles.login}>Accueil</Text>
         </TouchableOpacity>
       </View>
-    </>
+    </View>
   );
 }
 
@@ -60,11 +57,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#F5FCFF",
   },
-  logoContainer: {
-    backgroundColor: "#F5FCFF",
-    alignItems: "center",
-    paddingBottom: 100,
-    paddingTop: 50,
+  logoApp: {
+    margin: 20,
+    width: 150,
+    height: 200,
+    alignSelf: "center",
   },
   login: {
     fontSize: 20,

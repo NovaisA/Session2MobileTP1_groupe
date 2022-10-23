@@ -19,7 +19,7 @@ import {
   getFirestore,
 } from "firebase/firestore";
 
-export default function MainListe() {
+export default function MainListe({ navigation }) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -30,7 +30,14 @@ export default function MainListe() {
     return (
       <View style={styles.listeContainer}>
         <View style={{ marginRight: 15 }}>
-          <TouchableOpacity onPress={() => beforeConversation()}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("Conversation", {
+                nom: item.nom,
+                email: item._id,
+              })
+            }
+          >
             <Text style={{ marginBottom: 10 }}>Email: {item._id}</Text>
             <Text>Nom: {item.nom}</Text>
           </TouchableOpacity>
