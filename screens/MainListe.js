@@ -96,6 +96,7 @@ export default function MainListe({ navigation }) {
     });
     setUsers(userList);
   };
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -105,6 +106,9 @@ export default function MainListe({ navigation }) {
       />
       <TouchableOpacity style={styles.button} onPress={() => listeContact()}>
         <Text style={{ color: "white" }}>Phone contacts</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => getUsers()}>
+        <Text style={{ color: "white" }}>App contacts</Text>
       </TouchableOpacity>
     </View>
   );
