@@ -18,6 +18,7 @@ import {
   updateDoc,
   getFirestore,
 } from "firebase/firestore";
+import * as Contacts from "expo-contacts";
 
 export default function MainListe({ navigation }) {
   const [users, setUsers] = useState([]);
@@ -25,6 +26,23 @@ export default function MainListe({ navigation }) {
   useEffect(() => {
     getUsers();
   }, []);
+
+  const listeContact = async () => {
+    const userList = [];
+    const { status } = await Contacts.requestPermissionsAsync();
+    if (status === "granted") {
+      const { data } = await Contacts.getContactsAsync({});
+      console.log(data);
+      data.forEach((doc) => {
+        const user = {
+          _id: "Phone contact",
+          nom: doc.name,
+        };
+        userList.push(user);
+      });
+      setUsers(userList);
+    }
+  };
 
   const renderUsers = ({ item }) => {
     return (
@@ -66,15 +84,6 @@ export default function MainListe({ navigation }) {
     ]);
   };
 
-  const beforeConversation = () => {
-    Alert.alert("Will go to conversation", "Placeholder", [
-      {
-        text: "Cancel",
-        style: "cancel",
-      },
-    ]);
-  };
-
   const getUsers = async () => {
     const userList = [];
     const querySnapshot = await getDocs(collection(db, "usagers"));
@@ -94,7 +103,7 @@ export default function MainListe({ navigation }) {
         renderItem={renderUsers}
         keyExtractor={(item) => item.id}
       />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => listeContact()}>
         <Text style={{ color: "white" }}>Phone contacts</Text>
       </TouchableOpacity>
     </View>
