@@ -30,6 +30,9 @@ export default function Conversation({ route, navigation }) {
       msgReceived: "Rien toi?",
     },
   ]);
+  const sendMsg = () => {
+    Alert.alert("Message", "Message sera envoyer a la bd");
+  };
 
   const renderUserMsg = ({ item }) => {
     return (
@@ -58,7 +61,14 @@ export default function Conversation({ route, navigation }) {
             renderItem={renderUserMsg}
             keyExtractor={(item) => item._id}
           />
-          <TextInput style={styles.input} placeholder="Entrez votre message" />
+          <TextInput
+            style={styles.input}
+            placeholder="Entrez votre message"
+            onChangeText={setMsgInput}
+          />
+          <TouchableOpacity style={styles.button2} onPress={() => sendMsg()}>
+            <Text style={{ color: "red" }}>Envoi</Text>
+          </TouchableOpacity>
         </View>
         <TouchableOpacity
           style={styles.button}
@@ -94,7 +104,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: "blue",
     textAlign: "center",
-    borderRadius: 20,
+    borderRadius: 15,
     backgroundColor: "lightyellow",
   },
   button: {
@@ -108,6 +118,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginLeft: 130,
     marginTop: 20,
+  },
+  button2: {
+    height: 40,
+    borderWidth: 1,
+    borderRadius: 19,
+    borderColor: "black",
+    backgroundColor: "black",
+    alignItems: "center",
+    justifyContent: "center",
   },
   message: {
     borderWidth: 1,
