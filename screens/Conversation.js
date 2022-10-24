@@ -7,34 +7,42 @@ import {
   Image,
   Alert,
   TextInput,
+  Button,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 
 export default function Conversation({ route, navigation }) {
+  const [msgInput, setMsgInput] = useState("");
   const [msgSentListe, setMsgSentListe] = useState([
     {
-      msg: "Salut",
+      _id: "1",
+      msgSent: "Salut",
+      msgReceived: "Hello",
     },
     {
-      msg: "Sa va?",
+      _id: "2",
+      msgSent: "Sa va?",
+      msgReceived: "Oui toi",
     },
     {
-      msg: "Oui quoi de neuf?",
+      _id: "3",
+      msgSent: "Oui quoi de neuf?",
+      msgReceived: "Rien toi?",
     },
   ]);
-  const [msgRecuListe, setMsgRecuListe] = useState([
-    {
-      msg: "Salut",
-    },
-    {
-      msg: "Oui toi?",
-    },
-  ]);
+
   const renderUserMsg = ({ item }) => {
     return (
-      <View style={styles.message}>
-        <Text>{item.msg}</Text>
-      </View>
+      <>
+        <Text style={{ marginLeft: 20 }}>Vous</Text>
+        <View style={styles.message}>
+          <Text style={styles.textMsg}>{item.msgSent}</Text>
+        </View>
+        <Text style={{ marginLeft: 300 }}>{route.params.nom}</Text>
+        <View style={styles.message2}>
+          <Text style={styles.textMsg}>{item.msgReceived}</Text>
+        </View>
+      </>
     );
   };
 
@@ -48,12 +56,7 @@ export default function Conversation({ route, navigation }) {
           <FlatList
             data={msgSentListe}
             renderItem={renderUserMsg}
-            keyExtractor={(item) => item.msg}
-          />
-          <FlatList
-            data={msgRecuListe}
-            renderItem={renderUserMsg}
-            keyExtractor={(item) => item.msg}
+            keyExtractor={(item) => item._id}
           />
           <TextInput style={styles.input} placeholder="Entrez votre message" />
         </View>
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
     borderColor: "blue",
     marginHorizontal: 20,
     borderRadius: 20,
-    backgroundColor: "lightgray",
+    backgroundColor: "white",
   },
   input: {
     minHeight: 50,
@@ -112,5 +115,21 @@ const styles = StyleSheet.create({
     maxWidth: 200,
     marginLeft: 20,
     marginTop: 10,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: "lightyellow",
+  },
+  message2: {
+    borderWidth: 1,
+    borderRadius: 25,
+    maxWidth: 200,
+    marginLeft: 150,
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: "lightblue",
+  },
+  textMsg: {
+    textAlign: "center",
   },
 });
