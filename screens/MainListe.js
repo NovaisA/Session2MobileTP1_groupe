@@ -105,10 +105,10 @@ export default function MainListe({ navigation }) {
         keyExtractor={(item) => item.id}
       />
       <TouchableOpacity style={styles.button} onPress={() => listeContact()}>
-        <Text style={{ color: "white" }}>Phone contacts</Text>
+        <Text style={styles.buttonText}>Phone contacts</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => getUsers()}>
-        <Text style={{ color: "white" }}>App contacts</Text>
+        <Text style={styles.buttonText}>App contacts</Text>
       </TouchableOpacity>
     </View>
   );
@@ -137,11 +137,23 @@ const styles = StyleSheet.create({
     width: 150,
     height: 50,
     borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "blue",
+    backgroundColor: "blue",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#fff",
+    marginBottom: 10,
+  },
+  buttonText: {
+    fontWeight: "bold",
+    fontSize: 20,
+    textAlign: "center",
+    color: "#fff",
     borderRadius: 19,
     borderColor: "blue",
     backgroundColor: "blue",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 10,
   },
 });

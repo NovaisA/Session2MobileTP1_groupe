@@ -88,11 +88,11 @@ export default function Register() {
         value={telephone}
         onChangeText={setTelephone}
       />
-     <View style={styles.btn}>
-      <TouchableOpacity style={styles.button} onPress={ajouterUser}>
-        <Text style={styles.register} >S'enregistrer</Text>
-      </TouchableOpacity>
-    </View>
+      <View style={styles.btn}>
+        <TouchableOpacity style={styles.button} onPress={ajouterUser}>
+          <Text style={styles.register}>S'enregistrer</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -115,31 +115,30 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: 'blue',
-    backgroundColor: 'blue',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#fff',
-    
+    borderColor: "blue",
+    backgroundColor: "blue",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#fff",
   },
 
-  btn:{
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: 10,
-      margin: 12,
-      borderRadius: 6,
+  btn: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+    margin: 12,
+    borderRadius: 6,
   },
 
-  register:{
+  register: {
     fontWeight: "bold",
     fontSize: 20,
-    textAlign: 'center',
-    color: '#fff',
+    textAlign: "center",
+    color: "#fff",
     borderRadius: 19,
     borderColor: "blue",
     backgroundColor: "blue",
     justifyContent: "center",
     alignItems: "center",
-  }
+  },
 });
