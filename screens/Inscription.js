@@ -1,35 +1,13 @@
-import { Button } from "@react-native-material/core";
 import React, { useState } from "react";
-import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
-//import {db} from "../database/firebase";
+import { View, TextInput, StyleSheet, TouchableOpacity,Text } from "react-native";
 
 
-export default function Register() {
+export default function Register({navigation}) {
     const [nomComplet, setNomComplet] = useState("");
     const [courriel, setCourriel] = useState("");
     const [motDePasse, setMotDePasse] = useState("");
     const [confirmation, setConfirmation] = useState("");
     const [telephone, setTelephone] = useState("");
-
-
-    //ajouter l'usager sur la bd
-    const addUser = async () => {
-            const newUser ={
-                nom: nomComplet,
-                courriel,
-                motDePasse,
-                confirmation,
-                telephone
-            };
-            console.log(newUser);
-        try {
-            const docRef = await addDoc(collection(db, "users"), newUser);
-            newUser.id = docRef.id;
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
-      
-        };
 
     return (
         <View style={styles.container}>
@@ -37,67 +15,71 @@ export default function Register() {
                 style={styles.input}
                 placeholder="Nom Complet"
                 value={nomComplet}
-                onChangeText={setNomComplet}
-                
+                onChangeText={(text) => setNomComplet(text)}
             />
             <TextInput
-                style={styles.input}
+                style={styles.input }
                 placeholder="Email"
                 value={courriel}
-                onChangeText={setCourriel}
+                onChangeText={(text) => setCourriel(text)}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Mot de passe"
                 value={motDePasse}
-                onChangeText={setMotDePasse}
+                onChangeText={(text) => setMotDePasse(text)}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Confirmation"
                 value={confirmation}
-                onChangeText={setConfirmation}
+                onChangeText={(text) => setConfirmation(text)}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Cellulaire"
                 keyboardType="numeric"
                 value={telephone}
-                onChangeText={setTelephone}
+                onChangeText={(text) => setTelephone(text)}
             />
-           <TouchableOpacity style={styles.touchables} onPress={addUser}>
-           <Button title="S'enregistrer" />
+           <TouchableOpacity 
+           title="Register"
+           style={styles.touchables}
+           onPress={() => navigation.navigate('Login')}>
+           <Text style={styles.register}>Register</Text>
            </TouchableOpacity>
         </View>
     )
 }
 
-
 const styles = StyleSheet.create({
-  container: {
-    margin: 8,
-  },
+    container: {
+        margin: 8,
+    },
 
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 6,
-  },
+    input: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
+        borderRadius: 6,
+    },
+
     touchables: {
         justifyContent: "center",
         alignItems: "center",
         padding: 10,
         margin: 12,
-        borderRadius: 6,
+        borderRadius: 10,
+        backgroundColor:"blue",
     },
-  button: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: " red",
-    padding: 10,
-    margin: 12,
-    borderRadius: 6,
-  },
+
+    register: {
+            fontSize: 20,
+            textAlign: 'center',
+            fontWeight: "bold",
+            color: "#fff",
+    }
+
 });
+
