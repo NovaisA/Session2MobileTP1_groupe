@@ -1,4 +1,3 @@
-
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -13,47 +12,66 @@ const Drawer = createDrawerNavigator();
 const AppNavigation = () => {
   return (
     <NavigationContainer>
-      <Drawer.Navigator >
-      <Drawer.Screen options={{
-        title: 'Accueil',
-        headerStyle:{
-          backgroundColor:"blue"
-        },
-        headerTintColor:'#fff',
-      }}  name="Accueil" component={Accueil} /> 
-      <Drawer.Screen options={{
-        title: 'Register',
-        headerStyle:{
-          backgroundColor:"blue"
-        },
-        headerTintColor:'#fff',
-      }} name="Register" component={Register} 
-      />
-        <Drawer.Screen options={{
-        title: 'Login',
-        headerStyle:{
-          backgroundColor:"blue"
-        },
-        headerTintColor:'#fff',
-      }} name="Login" component={Login} />
-        <Drawer.Screen options={{
-        title: 'Liste Contact',
-        headerStyle:{
-          backgroundColor:"blue"
-        },
-        headerTintColor:'#fff',
-      }} name="Liste Contact" component={MainListe} />
-        <Drawer.Screen options={{
-        title: 'Liste Contact',
-        headerStyle:{
-          backgroundColor:"blue"
-        },
-        headerTintColor:'#fff',
-      }} name="Conversation" component={Conversation} />
+      <Drawer.Navigator>
+        <Drawer.Screen
+          options={{
+            title: "Accueil",
+            headerStyle: {
+              backgroundColor: "blue",
+            },
+            headerTintColor: "#fff",
+          }}
+          name="Accueil"
+          component={Accueil}
+        />
+        <Drawer.Screen
+          options={{
+            title: "Register",
+            headerStyle: {
+              backgroundColor: "blue",
+            },
+            headerTintColor: "#fff",
+          }}
+          name="Register"
+          component={Register}
+        />
+        <Drawer.Screen
+          options={{
+            title: "Login",
+            headerStyle: {
+              backgroundColor: "blue",
+            },
+            headerTintColor: "#fff",
+          }}
+          name="Login"
+          component={Login}
+        />
+        <Drawer.Screen
+          options={{
+            title: "Liste Contact",
+            headerStyle: {
+              backgroundColor: "blue",
+            },
+            headerTintColor: "#fff",
+          }}
+          name="Liste Contact"
+          component={MainListe}
+        />
+        <Drawer.Screen
+          options={{
+            title: "Conversation",
+            headerStyle: {
+              backgroundColor: "blue",
+            },
+            headerTintColor: "#fff",
+            drawerItemStyle: { height: 0 },
+          }}
+          name="Conversation"
+          component={Conversation}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );
 };
 
 export default AppNavigation;
-
