@@ -9,6 +9,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+//navigation sers a naviguer entre les ecrans
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,7 +43,7 @@ export default function Login({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Accueil")}
+          onPress={() => seConnecter("Accueil")}
         >
           <Text style={styles.login}>Accueil</Text>
         </TouchableOpacity>
