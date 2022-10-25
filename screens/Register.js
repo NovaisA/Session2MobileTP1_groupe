@@ -11,7 +11,7 @@ import {
 import { db } from "../database/firebase";
 import { addDoc, collection } from "firebase/firestore";
 
-export default function Register() {
+export default function Register({ navigation }) {
   const [nomComplet, setNomComplet] = useState("");
   const [courriel, setCourriel] = useState("");
   const [motDePasse, setMotDePasse] = useState("");
@@ -28,6 +28,7 @@ export default function Register() {
       ]);
     } else {
       addUser();
+      navigation.navigate("Login");
     }
   };
   //ajouter l'usager sur la bd
