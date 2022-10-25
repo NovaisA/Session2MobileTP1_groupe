@@ -16,6 +16,7 @@ const AppNavigation = () => {
         <Drawer.Screen
           options={{
             title: "Accueil",
+            headerTitleAlign: "center",
             headerStyle: {
               backgroundColor: "blue",
             },
@@ -27,6 +28,7 @@ const AppNavigation = () => {
         <Drawer.Screen
           options={{
             title: "Register",
+            headerTitleAlign: "center",
             headerStyle: {
               backgroundColor: "blue",
             },
@@ -38,6 +40,7 @@ const AppNavigation = () => {
         <Drawer.Screen
           options={{
             title: "Login",
+            headerTitleAlign: "center",
             headerStyle: {
               backgroundColor: "blue",
             },
@@ -49,6 +52,7 @@ const AppNavigation = () => {
         <Drawer.Screen
           options={{
             title: "Liste Contact",
+            headerTitleAlign: "center",
             headerStyle: {
               backgroundColor: "blue",
             },
@@ -60,11 +64,12 @@ const AppNavigation = () => {
         <Drawer.Screen
           options={{
             title: "Conversation",
+            headerTitleAlign: "center",
             headerStyle: {
               backgroundColor: "blue",
             },
             headerTintColor: "#fff",
-            drawerItemStyle: { height: 0 },
+            drawerItemStyle: { height: 0 }, //drawerItemStyle cache un ecran dans la liste de selection
           }}
           name="Conversation"
           component={Conversation}
