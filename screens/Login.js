@@ -8,21 +8,46 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  isAuthenticated,
+  login,
+  storeData,
+  getCommonError,
+} from "../services/userServices";
 
 //navigation sers a naviguer entre les ecrans
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState();
 
-  function seConnecter(paramNavigation) {
-    //connect and authenticate into firebase
-    navigation.navigate(paramNavigation);
-  }
+  useEffect(() => {
+    (async () => {
+      const isUserAuthenticated = await isAuthenticated();
+      if (isUserAuthenticated) {
+        navigation.navigate("Liste Contact");
+      }
+    })();
+  }, []);
+
+  const seConnecter = async () => {
+    var response = await login(email, password);
+    if (response.success) {
+      await storeData(response.idToken, response.expiresIn);
+      navigation.navigate("Liste Contact");
+    } else {
+      var message = getCommonError(response?.error?.message);
+      setErrorMessage(message);
+    }
+  };
 
   return (
     <View>
       <View style={styles.logoApp}>
         <Image source={require("../assets/logoApp.png")} />
+      </View>
+      <View style={{ marginTop: 10 }}>
+        <Text style={styles.errorText}>{errorMessage}</Text>
       </View>
       <View style={styles.container}>
         <TextInput
@@ -102,5 +127,10 @@ const styles = StyleSheet.create({
     backgroundColor: "blue",
     justifyContent: "center",
     alignItems: "center",
+  },
+  errorText: {
+    color: "red",
+    textTransform: "uppercase",
+    textAlign: "center",
   },
 });
