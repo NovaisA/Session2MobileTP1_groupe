@@ -1,118 +1,152 @@
-import { Button } from "@react-native-material/core";
-import React, { useState } from "react";
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-  Text,
-} from "react-native";
-import { db } from "../database/firebase";
-import { addDoc, collection } from "firebase/firestore";
+import React, { useState, useEffect } from 'react';
+import {TextInput, Stack, Button } from '@react-native-material/core';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import {View, StyleSheet, Text} from "react-native";
+import {isAuthenticated, signUp,updateProfile,getCommonError} from '../services/userServices';
 
-export default function Register({ navigation }) {
-  const [nomComplet, setNomComplet] = useState("");
-  const [courriel, setCourriel] = useState("");
-  const [motDePasse, setMotDePasse] = useState("");
-  const [confirmation, setConfirmation] = useState("");
+export default function Register({navigation}) {
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [confirmation, setConfirmation] = useState();
   const [telephone, setTelephone] = useState("");
+  const [errorMessage, setErrorMessage] = useState();
 
-  const ajouterUser = () => {
-    if (motDePasse !== confirmation) {
-      Alert.alert("Erreur", "Mots de pass différent", [
-        {
-          text: "Ok",
-          style: "ok",
-        },
-      ]);
-    } else {
-      addUser();
-      navigation.navigate("Login");
+  useEffect(() => {
+    (async () => {
+      const isUserAuthenticated = await isAuthenticated();
+      if (isUserAuthenticated) {
+        navigation.navigate('Login');
+      }
+    })();
+  }, []);
+
+  const createAccount = async () => {
+    if (validateName() && validateEmail() && validatePassword()) {
+      setErrorMessage('');
+      var response = await signUp(email, password);
+
+      if (response.success) {
+        const displayName = `${firstName} ${lastName}`;
+        await updateProfile(displayName, response.idToken);
+        navigation.navigate('Login');
+      } else {
+        var message = getCommonError(response?.error?.message);
+        setErrorMessage(message);
+      }
     }
   };
-  //ajouter l'usager sur la bd
-  const addUser = async () => {
-    if (motDePasse == confirmation) {
-      const newUser = {
-        nom: nomComplet,
-        _id: courriel,
-        password: motDePasse,
-      };
-      console.log(newUser);
-      try {
-        const docRef = await addDoc(collection(db, "usagers"), newUser);
-        newUser.id = docRef.id;
-      } catch (e) {
-        console.error("Error adding document: ", e);
-      }
-    } else {
-      Alert.alert("Erreur", "Mots de pass différent", [
-        {
-          text: "Ok",
-          style: "ok",
-        },
-      ]);
+
+  const validateName = () => {
+    if (!firstName || firstName.length < 2) {
+      setErrorMessage('Le prénom doit contenir au moins deux caractères.');
+      return false;
     }
+
+    if (!lastName || lastName.length < 2) {
+      setErrorMessage('Le nom doit contenir au moins deux caractères.');
+      return false;
+    }
+    return true;
+  };
+
+  const validateEmail = () => {
+    if (!email || email.length < 1) {
+      setErrorMessage('Courriel invalide');
+      return false;
+    }
+    return true;
+  };
+
+  const validatePassword = () => {
+    if (password !== confirmation) {
+      setErrorMessage('Les mots de passe ne sont pas identiques.');
+      return false;
+    }
+
+    if (!password || password.length < 6) {
+      setErrorMessage('Le mot de passe est trop court.');
+      return false;
+    }
+    return true;
   };
 
   return (
+    <Stack spacing={2} style={{margin: 14 }}>
     <View style={styles.container}>
+    <View style={{ marginTop: 10 }}>
+          <Text style={styles.errorRegister}>{errorMessage}</Text>
+        </View>
       <TextInput
-        style={styles.input}
-        placeholder="Nom Complet"
-        value={nomComplet}
-        onChangeText={setNomComplet}
+        placeholder="Prénom"
+        value={firstName}
+        onChangeText={(text) => setFirstName(text)}
+        leading={(props) => (
+          <MaterialCommunityIcons name="account-plus-outline" size={24} color="blue" {...props} />
+        )}
+      />
+       <TextInput
+        placeholder="Nom"
+        value={lastName}
+        onChangeText={(text) => setLastName(text)}
+        leading={(props) => (
+          <MaterialCommunityIcons name="account-plus-outline" color="blue" {...props} />
+        )}
       />
       <TextInput
-        style={styles.input}
         placeholder="Email"
-        value={courriel}
-        onChangeText={setCourriel}
+        value={email}
+        onChangeText={(text) => setEmail(text)}
+        leading={(props) => (
+          <MaterialCommunityIcons name="email-outline" color="blue" {...props} />
+        )}
       />
       <TextInput
-        style={styles.input}
         placeholder="Mot de passe"
-        value={motDePasse}
-        onChangeText={setMotDePasse}
+        value={password}
+        onChangeText={(text) => setPassword(text)}
+        leading={(props) => (
+          <MaterialCommunityIcons name="onepassword" color="blue"{...props} />
+        )}
       />
       <TextInput
-        style={styles.input}
         placeholder="Confirmation"
         value={confirmation}
-        onChangeText={setConfirmation}
+        onChangeText={(text) => setConfirmation(text)}
+        leading={(props) => (
+          <MaterialCommunityIcons name="onepassword" color="blue"{...props} />
+        )}
       />
       <TextInput
-        style={styles.input}
         placeholder="Cellulaire"
         keyboardType="numeric"
         value={telephone}
-        onChangeText={setTelephone}
+        onChangeText={(text) => setTelephone(text)}
+        leading={(props) => (
+          <MaterialCommunityIcons name="cellphone" color="blue"{...props} />
+        )}
       />
+  
       <View style={styles.btn}>
-        <TouchableOpacity style={styles.button} onPress={ajouterUser}>
-          <Text style={styles.register}>S'enregistrer</Text>
-        </TouchableOpacity>
+        <Button style={styles.button}  
+        title="Register"
+        onPress={() => createAccount()}
+        />
       </View>
     </View>
+    </Stack>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: { 
     margin: 8,
   },
 
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 6,
-  },
 
   button: {
-    width: 150,
+    width: 200,
     height: 50,
     borderWidth: 1,
     borderRadius: 10,
@@ -121,6 +155,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     color: "#fff",
+    
   },
 
   btn: {
@@ -131,15 +166,11 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
 
-  register: {
+  errorRegister:{
+    margin:10,
+    textAlign: 'center',
     fontWeight: "bold",
     fontSize: 20,
-    textAlign: "center",
-    color: "#fff",
-    borderRadius: 19,
-    borderColor: "blue",
-    backgroundColor: "blue",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+    
+  }
 });
